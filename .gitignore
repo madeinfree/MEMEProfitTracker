@@ -1,0 +1,37 @@
+# Xcode
+#
+build/
+DerivedData/
+*.hmap
+*.ipa
+*.xcuserstate
+
+# User-specific files
+#
+*.xcuserdata
+*.xcuserdatad
+
+# Xcode workspace
+#
+*.xcworkspace
+
+# Objective-C/Swift specific
+#
+*.moved-aside
+*.xcworkspace
+!default.xcworkspace
+*.xcuserstate
+*.xcuserdatad
+*.xcscheme
+*.xcodeproj
+
+# Code Coverage
+#
+*.xccovreport
+*.xccovarchive
+
+# Temporary files
+#
+*.swp
+*.swpx
+*.tmp
