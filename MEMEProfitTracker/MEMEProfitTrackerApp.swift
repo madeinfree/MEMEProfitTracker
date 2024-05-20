@@ -44,6 +44,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var historyListModel = HistoryListModel()
     private var cancellables = Set<AnyCancellable>()
     
+    var titleStatus = 0
     var statusItem: NSStatusItem!
     var timer: Timer?
     var timeInterval: Double = 5.0
@@ -109,9 +110,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             switch response.result {
             case .success(let symbolPrice):
                 if let button = self.statusItem.button {
-                    button.title = "\(symbolPrice.symbol):\(symbolPrice.price)"
-                    if let priceFloat = symbolPrice.priceFloat {
-                        button.title += "(\(priceFloat * (Float(self.assetAmount) ?? 1)))"
+                    if self.titleStatus == 0 {
+                        button.title = "\(symbolPrice.symbol)"
+                        self.titleStatus = 1
+                    } else {
+                        if let priceFloat = symbolPrice.priceFloat {
+                            button.title = "$\(String(format: "%.5f", priceFloat))(\(priceFloat * (Float(self.assetAmount) ?? 1)))"
+                            self.titleStatus = 0
+                        }
                     }
                 }
             case .failure(let error):
