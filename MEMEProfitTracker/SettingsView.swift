@@ -21,7 +21,7 @@ struct SettingsView: View {
             Text("代幣數量")
             TextField("代幣數量", text: self.$tempAssetAmount)
             .textFieldStyle(RoundedBorderTextFieldStyle())
-            .onChange(of: tempAssetAmount) { oldValue, newValue in
+            .onChange(of: tempAssetAmount) { newValue in
                 let filtered = newValue.filter { "0123456789.".contains($0) }
                 if filtered != newValue {
                     self.tempAssetAmount = filtered

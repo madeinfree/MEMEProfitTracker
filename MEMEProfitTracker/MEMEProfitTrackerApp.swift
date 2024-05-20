@@ -47,9 +47,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var titleStatus = 0
     var statusItem: NSStatusItem!
     var timer: Timer?
-    var timeInterval: Double = 5.0
+    var timeInterval: Double = 3.0
     var symbol: String = "BTCUSDT"
-    var assetAmount: String = "0"
+    var assetAmount: String = "0.0"
     var settingsViewPopover: NSPopover!
     var historyListViewPopover: NSPopover!
     var eventMonitor: Any?
@@ -113,9 +113,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     if self.titleStatus == 0 {
                         button.title = "\(symbolPrice.symbol)"
                         self.titleStatus = 1
+                    } else if(self.titleStatus == 1) {
+                        if let priceFloat = symbolPrice.priceFloat {
+                            button.title = "$\(priceFloat)"
+                            self.titleStatus = 2
+                        }
                     } else {
                         if let priceFloat = symbolPrice.priceFloat {
-                            button.title = "$\(String(format: "%.5f", priceFloat))(\(priceFloat * (Float(self.assetAmount) ?? 1)))"
+                            let profit = priceFloat * Float(self.assetAmount)!
+                            button.title = "Profit: $\(String(format: "%.0f", profit))"
                             self.titleStatus = 0
                         }
                     }
